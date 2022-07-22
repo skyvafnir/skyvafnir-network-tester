@@ -1,0 +1,150 @@
+<html class="swagger-ui">
+<head>
+    <link rel="shortcut icon" href="https://fastapi.tiangolo.com/img/favicon.png">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/purecss@2.1.0/build/pure-min.css" integrity="sha384-yHIFVG6ClnONEA5yB5DJXfW2/KC173DIQrYoZMEtBvGzmf0PKiGyNEqe9N6BNDBH" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/purecss@2.1.0/build/grids-responsive-min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/dojo/1.13.0/dojo/dojo.js"></script>
+
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>URL Checker</title>
+    <style>
+        .errors{
+            visibility: hidden;
+            display: none;
+        }
+        body {
+            text-align: center;font-size: 1.5em;
+            color: black;
+        }
+        body {
+          background-color: black;
+          background-image: radial-gradient(rgba(0, 150, 0, 0.75), black 120%);
+          background-image: radial-gradient(rgb(109 126 109 / 75%), black 120%);
+          height: 100vh;
+          margin: 0;
+          overflow: hidden;
+          padding: 2rem;
+          color: white;
+          font: 1.3rem Inconsolata, monospace;
+          text-shadow: 0 0 5px #C8C8C8;
+        }
+        body::after {
+          content: "";
+          position: absolute;
+          top: 0;
+          left: 0;
+          width: 100vw;
+          height: 100vh;
+          background: repeating-linear-gradient(0deg, rgba(0, 0, 0, 0.15), rgba(0, 0, 0, 0.15) 1px, transparent 1px, transparent 2px);
+          pointer-events: none;
+        }
+
+        ::selection {
+          background: #0080FF;
+          text-shadow: none;
+        }
+
+        pre {
+          margin: 0;
+        }
+        .button-success,
+        .button-error,
+        .button-warning,
+        .button-secondary {
+            color: white;
+            border-radius: 4px;
+            text-shadow: 0 1px 1px rgba(0, 0, 0, 0.2);
+        }
+
+        .button-success {
+            background: rgb(28, 184, 65);
+            /* this is a green */
+        }
+
+        .button-error {
+            background: rgb(202, 60, 60);
+            /* this is a maroon */
+        }
+
+        .button-warning {
+            background: rgb(223, 117, 20);
+            /* this is an orange */
+        }
+
+        .button-secondary {
+            background: rgb(66, 184, 221);
+            /* this is a light blue */
+        }
+    </style>
+    <script>
+        let urls = {{ urls | safe }}
+        require(["dojo/request", "dojo/dom", "dojo/dom-class"], function(request, dom, domClass){
+
+            for (const url of urls){
+                let postData = {"url": url}
+                request.post("/check-url/", {
+                    handleAs: "json",
+                    data: JSON.stringify(postData),
+                    headers: { "Content-Type": "application/json"}
+                }).then(
+                    function(response){
+                        let domNode = dom.byId(response.url)
+                        domNode.innerHTML = response.message
+                        let className = "button-"+response.status_message
+                        domClass.replace(domNode, className, "button-waiting")
+                        let errorDiv = dom.byId(response.url+"-errors")
+                        errorDiv.innerHTML = response.error || "No error message."
+
+                    },
+                    function(error){
+                        console.log("An error occurred: " + error);
+                    }
+                );
+            }
+        });
+        require(["dojo/on", "dojo/dom", "dojo/dom-style", "dojo/mouse", "dojo/domReady!"],
+            function(on, dom, domStyle, mouse) {
+             for (const url of urls) {
+                 const myButton = dom.byId(url)
+                 on(myButton, "click", function (evt) {
+                     let divId = url+"-errors";
+                     let myDiv = dom.byId(divId);
+
+
+                     let visibility = domStyle.get(myDiv, "visibility")
+                     console.log(visibility)
+                     if (visibility == "hidden"){
+                         domStyle.set(myDiv, "visibility", "visible");
+                         domStyle.set(myDiv, "display", "block");
+                     }
+                     else {
+                         domStyle.set(myDiv, "visibility", "hidden");
+                         domStyle.set(myDiv, "display", "none");
+                     }
+                 });
+             }
+        });
+    </script>
+</head>
+<body>
+<h1>Skývafnir Network Test</h1>
+
+
+<div class="pure-g">
+    <div class="pure-u-1-2"><h3>URL</h3></div>
+    <div class="pure-u-1-2"><h3>Response</h3></div>
+    {% for i in results %}
+    <div class="pure-u-1-2"><p>{{ i['url'] }}</p></div>
+    <div class="pure-u-1-2">
+        <p>
+            <button title="CLICK ME!" id="{{ i['name'] }}" class="button-waiting">Waiting</button>
+        </p>
+
+    </div>
+     <div class="pure-u-1-1 errors" id="{{ i['name'] }}-errors"></div>
+    {% endfor %}
+</div>
+</table>
+</body>
+</html>
