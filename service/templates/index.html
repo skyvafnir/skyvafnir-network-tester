@@ -110,8 +110,6 @@
                  on(myButton, "click", function (evt) {
                      let divId = url+"-errors";
                      let myDiv = dom.byId(divId);
-
-
                      let visibility = domStyle.get(myDiv, "visibility")
                      console.log(visibility)
                      if (visibility == "hidden"){
@@ -129,18 +127,17 @@
 </head>
 <body>
 <h1>Skývafnir Network Tester</h1>
-
-
 <div class="pure-g">
     <div class="pure-u-1-2"><h3>URL</h3></div>
     <div class="pure-u-1-2"><h3>Response</h3></div>
     {% for i in results %}
-    <div class="pure-u-1-2"><p>{{ i['url'] }}</p></div>
+    <div class="pure-u-1-2">
+        <p>{{ i['url'] }}</p>
+    </div>
     <div class="pure-u-1-2">
         <p>
             <button title="CLICK ME!" id="{{ i['name'] }}" class="button-waiting">Waiting</button>
         </p>
-
     </div>
      <div class="pure-u-1-1 errors" id="{{ i['name'] }}-errors"></div>
     {% endfor %}

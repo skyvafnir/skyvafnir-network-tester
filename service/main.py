@@ -14,7 +14,7 @@ from .models import UrlCheckRequest, MakeRequestResponse, CheckUrlResponse
 dictConfig(LogConfig().dict())
 log = logging.getLogger(__name__)
 
-templates = Jinja2Templates(directory="templates")
+templates = Jinja2Templates(directory="service/templates")
 
 PROJECT_NAME = "kubernetes-fastapi"
 
