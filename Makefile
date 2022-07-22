@@ -5,5 +5,5 @@ build:
 shell:
 	@docker run -it skyvafnir-infra-test bash
 
-up:
+run:
 	@docker run -p 8000:8000 skyvafnir-infra-test
