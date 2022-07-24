@@ -1,7 +1,15 @@
 # Default values for skyvafnir-network-test.
 # This is a YAML-formatted file.
 # Declare variables to be passed into your templates.
-
+skyvafnir:
+  networkTester:
+    urls:
+      - https://www.google.com
+      - http://localhost:8000/ping
+      - http://bad-url-should-fail.com
+      - http://localhost:8000/check-url
+      - https://www.gzur.org
+      - http://www.gzur.org
 replicaCount: 1
 
 image:
