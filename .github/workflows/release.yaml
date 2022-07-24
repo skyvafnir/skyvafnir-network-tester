@@ -2,7 +2,7 @@ name: release
 
 env:
   DOCKER_REPO: skyvafnir/skyvafnir-network-test
-  DOCKER_TAG: ${{ github.ref_name }}
+  VERSION: ${{ github.ref_name }}
 on:
   push:
     tags:
@@ -22,11 +22,16 @@ jobs:
           password: ${{ secrets.DOCKERHUB_TOKEN }}
       - name: Checkout
         uses: actions/checkout@v2
+      - name: Generate Version stamp
+        run: echo ${{ env.VERSION }} > VERSION
       - name: Build and push
         uses: docker/build-push-action@v2
         with:
-          tags: ${{ env.DOCKER_REPO }}:${{ env.DOCKER_TAG  }}
+          tags: ${{ env.DOCKER_REPO }}:${{ env.VERSION }}
           context: .
           push: true
           cache-from: type=gha
           cache-to: type=gha,mode=max
+          build-args: |
+            "VERSION=${{ env.VERSION }}"
+            "GIT_SHA=${{ github.sha }}"

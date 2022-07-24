@@ -1,9 +1,11 @@
 VERSION := $(shell cat VERSION)
+GIT_SHA := $(shell git rev-parse --short HEAD)
 DOCKER_REPO := "skyvafnir/skyvafnir-network-test"
 
 run: docker.run
 shell: docker.shell
 build:docker.build
+
 
 # build and push
 release: docker.build docker.push
@@ -18,7 +20,7 @@ docker.run:
 	@docker run -p 8000:8000 skyvafnir-infra-test
 
 docker.build:
-	docker build -t $(DOCKER_REPO):$(VERSION) .
+	docker build --build-arg VERSION=$(VERSION)-local --build-arg GIT_SHA=$(GIT_SHA) -t $(DOCKER_REPO):$(VERSION) .
 
 docker.push:
 	@echo "## Pushing $(DOCKER_REPO):$(VERSION)"

@@ -12,4 +12,14 @@ COPY ./service ./service
 
 RUN ls -latr
 
+ARG GIT_SHA
+ARG VERSION
+
+ENV GIT_SHA ${GIT_SHA}
+ENV VERSION ${VERSION}
+
+LABEL is.skyvafnir.tags.service="skyvafnir-network-test"
+LABEL is.skyvafnir.tags.version="${VERSION}"
+LABEL is.skyvafnir.tags.sha="${GIT_SHA}"
+
 CMD ["uvicorn", "service.main:app", "--host", "0.0.0.0", "--port", "8000"]
