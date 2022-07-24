@@ -10,7 +10,6 @@ skyvafnir:
       - http://localhost:8000/check-url
       - https://www.gzur.org
       - http://www.gzur.org
-replicaCount: 1
 
 image:
   repository: skyvafnir/skyvafnir-network-test
@@ -21,6 +20,8 @@ image:
 imagePullSecrets: []
 nameOverride: ""
 fullnameOverride: ""
+
+replicaCount: 1
 
 serviceAccount:
   # Specifies whether a service account should be created
