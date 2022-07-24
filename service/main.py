@@ -45,12 +45,7 @@ URLS = os.environ.get("URLS", ",".join(TEST_URLS)).split(",")
 def root(request: Request):
     checked = []
     for url in URLS:
-        result = {
-            "name": slugify_url(url),
-            "url": url,
-            "message": "waiting",
-            "result_type": "..."
-        }
+        result = {"name": slugify_url(url), "url": url, "message": "waiting", "result_type": "..."}
         checked.append(result)
         ctx = {"request": request, "results": checked, "urls": URLS}
     return templates.TemplateResponse("index.html", ctx)

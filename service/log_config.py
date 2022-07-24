@@ -21,7 +21,6 @@ class LogConfig(BaseModel):
     version = 1
     disable_existing_loggers = True
     formatters = {
-
         "JSON": {
             "()": "service.log_config.JsonFormatter.create",
             "fmt": LOG_FORMATTER_STRING,
@@ -29,7 +28,6 @@ class LogConfig(BaseModel):
         }
     }
     handlers = {
-
         "JSON": {
             "formatter": "JSON",
             "class": "logging.StreamHandler",

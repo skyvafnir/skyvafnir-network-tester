@@ -36,13 +36,34 @@ def make_request(url: str) -> MakeRequestResponse:
 
 
 def slugify_url(url: str) -> str:
-    non_url_safe = ['"', '#', '$', '%', '&', '+',
-                    ',', '/', ':', ';', '=', '?',
-                    '@', '[', '\\', ']', '^', '`',
-                    '{', '|', '}', '~', "'"]
+    non_url_safe = [
+        '"',
+        "#",
+        "$",
+        "%",
+        "&",
+        "+",
+        ",",
+        "/",
+        ":",
+        ";",
+        "=",
+        "?",
+        "@",
+        "[",
+        "\\",
+        "]",
+        "^",
+        "`",
+        "{",
+        "|",
+        "}",
+        "~",
+        "'",
+    ]
     non_safe = [character for character in url if character in non_url_safe]
     if non_safe:
         for i in non_safe:
-            text = url.replace(i, '')
-    url = u'-'.join(url.split())
+            text = url.replace(i, "")
+    url = "-".join(url.split())
     return url
