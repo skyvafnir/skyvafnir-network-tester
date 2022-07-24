@@ -10,6 +10,7 @@ skyvafnir:
       - http://localhost:8000/check-url
       - https://www.gzur.org
       - http://www.gzur.org
+      - http://skyvafnir-network-test.skyvafnir-2/ping
 
 image:
   repository: skyvafnir/skyvafnir-network-test
