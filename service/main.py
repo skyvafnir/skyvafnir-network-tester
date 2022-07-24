@@ -8,15 +8,21 @@ from logging.config import dictConfig
 import logging
 
 from .core import make_request, slugify_url
-from .log_config import LogConfig
+from .log_config import LogConfig, configure_logging
 from .models import UrlCheckRequest, MakeRequestResponse, CheckUrlResponse
 
-dictConfig(LogConfig().dict())
-log = logging.getLogger(__name__)
+PROJECT_NAME = "skyvafnir-network-test"
+
+# Logging shenanigans
+LOG_FORMAT = os.environ.get("LOG_FORMAT", "JSON")
+LOG_LEVEL = os.environ.get("LOG_LEVEL", "INFO")
+
+configure_logging(LOG_FORMAT, LOG_LEVEL)
+
+log = logging.getLogger(PROJECT_NAME)
+log.info("Starting up!")
 
 templates = Jinja2Templates(directory="service/templates")
-
-PROJECT_NAME = "kubernetes-fastapi"
 
 app = FastAPI(
     title=PROJECT_NAME,
@@ -39,8 +45,6 @@ URLS = os.environ.get("URLS", ",".join(TEST_URLS)).split(",")
 def root(request: Request):
     checked = []
     for url in URLS:
-        # result = make_request(url)
-
         result = {
             "name": slugify_url(url),
             "url": url,
@@ -48,7 +52,6 @@ def root(request: Request):
             "result_type": "..."
         }
         checked.append(result)
-        log.info(result)
         ctx = {"request": request, "results": checked, "urls": URLS}
     return templates.TemplateResponse("index.html", ctx)
 
@@ -56,7 +59,7 @@ def root(request: Request):
 @app.post("/check-url/", response_model=CheckUrlResponse)
 def check_url(url: UrlCheckRequest):
     response = make_request(url.url)
-
+    log.info("Checkng URL: %s", url.url)
     if response.status_code == 200:
         status_message = "success"
     elif response.status_code > 0:

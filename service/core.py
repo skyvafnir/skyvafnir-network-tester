@@ -4,7 +4,7 @@ import requests
 
 from service.models import MakeRequestResponse
 
-log = logging.getLogger(__name__)
+logger = logging.getLogger(__name__)
 
 
 def make_request(url: str) -> MakeRequestResponse:
@@ -13,18 +13,19 @@ def make_request(url: str) -> MakeRequestResponse:
         resp = requests.get(url, timeout=5)
         status_code = resp.status_code
         result_as_text = f"{status_code} / {responses[status_code]}"
+        logger.info("Successful rexquest to %s: %s", url, result_as_text)
     except requests.exceptions.ConnectTimeout as tex:
-        log.error("ConnectTimeout for %s - Reason: %s", url, str(tex))
+        logger.error("ConnectTimeout for %s - Reason: %s", url, str(tex))
         status_code = -1
         result_as_text = "Timeout"
         error_message = str(tex)
     except requests.exceptions.ConnectionError as cex:
-        log.error("ConnectionError for %s - Reason: %s", url, str(cex))
+        logger.error("ConnectionError for %s - Reason: %s", url, str(cex))
         status_code = -1
         result_as_text = "Connection Error"
         error_message = str(cex)
     except IOError as ioex:
-        log.error("Ambigous error occurred for %s - Reason: %s", url, str(ioex))
+        logger.error("Ambigous error occurred for %s - Reason: %s", url, str(ioex))
         status_code = -1
         result_as_text = "Request Error"
         error_message = str(ioex)

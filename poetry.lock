@@ -125,6 +125,14 @@ dotenv = ["python-dotenv (>=0.10.4)"]
 email = ["email-validator (>=1.0.3)"]
 
 [[package]]
+name = "python-json-logger"
+version = "2.0.4"
+description = "A python library adding a json log formatter"
+category = "main"
+optional = false
+python-versions = ">=3.5"
+
+[[package]]
 name = "requests"
 version = "2.28.1"
 description = "Python HTTP for Humans."
@@ -204,7 +212,7 @@ standard = ["websockets (>=10.0)", "httptools (>=0.4.0)", "watchfiles (>=0.13)",
 [metadata]
 lock-version = "1.1"
 python-versions = "^3.9"
-content-hash = "b5798fd7dd562dc458462ed8b44f64d98b8d08c461532410a16b969158f041b4"
+content-hash = "9e4c0fc22736608972e886287fb10af22a288fa37cfe2ceade333aa703f2a712"
 
 [metadata.files]
 anyio = []
@@ -265,6 +273,7 @@ markupsafe = [
     {file = "MarkupSafe-2.1.1.tar.gz", hash = "sha256:7f91197cc9e48f989d12e4e6fbc46495c446636dfc81b9ccf50bb0ec74b91d4b"},
 ]
 pydantic = []
+python-json-logger = []
 requests = []
 sniffio = []
 starlette = []
