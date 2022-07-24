@@ -54,7 +54,7 @@ def root(request: Request):
 @app.post("/check-url/", response_model=CheckUrlResponse)
 def check_url(url: UrlCheckRequest):
     response = make_request(url.url)
-    log.info("Checkng URL: %s", url.url)
+    log.info("Checking URL: %s", url.url)
     if response.status_code == 200:
         status_message = "success"
     elif response.status_code > 0:
