@@ -39,7 +39,7 @@ spec:
                 name: {{ include "skyvafnir-network-test.fullname" . }}-urls
           ports:
             - name: http
-              containerPort: 8000
+              containerPort: 80
               protocol: TCP
           livenessProbe:
             httpGet:

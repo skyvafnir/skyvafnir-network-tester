@@ -34,6 +34,7 @@ app = FastAPI(
 TEST_URLS = [
     "https://www.google.com",
     "http://localhost:8000/ping",
+    "http://localhost/ping",
     "http://bad-url-should-fail.com",
     "http://localhost:8000/check-url",
     "https://www.gzur.org",
