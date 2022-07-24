@@ -1,7 +1,7 @@
 VERSION := $(shell cat VERSION)
 GIT_SHA := $(shell git rev-parse --short HEAD)
 DOCKER_REPO := "skyvafnir/skyvafnir-network-test"
-
+NAMESPACE ?= "skyvafnir"
 docker.shell:
 	@docker run -it $(DOCKER_REPO):$(VERSION) bash
 
@@ -19,7 +19,7 @@ docker.push:
 	@docker push "$(DOCKER_REPO):latest"
 
 k8s.install:
-	@helm template -name skyvafnir-network-test deploy/skyvafnir-network-test | kubectl apply -n skyvafnir -f -
+	helm template -name skyvafnir-network-test deploy/skyvafnir-network-test | kubectl apply -n $(NAMESPACE) -f -
 
 
 run: docker.run  # docker run
