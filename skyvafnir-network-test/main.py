@@ -8,8 +8,8 @@ from logging.config import dictConfig
 import logging
 
 from .core import make_request, slugify_url
-from .log_config import LogConfig, configure_logging
-from .models import UrlCheckRequest, MakeRequestResponse, CheckUrlResponse
+from .log_config import configure_logging
+from .models import UrlCheckRequest, CheckUrlResponse
 
 PROJECT_NAME = "skyvafnir-network-test"
 
@@ -22,7 +22,7 @@ configure_logging(LOG_FORMAT, LOG_LEVEL)
 log = logging.getLogger(PROJECT_NAME)
 log.info("Starting up!")
 
-templates = Jinja2Templates(directory="service/templates")
+templates = Jinja2Templates(directory="skyvafnir-network-test/templates")
 
 app = FastAPI(
     title=PROJECT_NAME,
@@ -64,12 +64,12 @@ def check_url(url: UrlCheckRequest):
     return CheckUrlResponse(**response.dict(), status_message=status_message)
 
 
-@app.get("/ping", summary="Check that the service is operational")
+@app.get("/ping", summary="Check that the skyvafnir-network-test is operational")
 def pong():
     """
-    Sanity check - this will let the user know that the service is operational.
+    Sanity check - this will let the user know that the skyvafnir-network-test is operational.
 
-    It is also used as part of the HEALTHCHECK. Docker uses curl to check that the API service is still running,
+    It is also used as part of the HEALTHCHECK. Docker uses curl to check that the API skyvafnir-network-test is still running,
     by exercising this endpoint.
 
     """

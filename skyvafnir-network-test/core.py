@@ -2,7 +2,7 @@ import logging
 from http.client import responses
 import requests
 
-from service.models import MakeRequestResponse
+from .models import MakeRequestResponse
 
 logger = logging.getLogger(__name__)
 

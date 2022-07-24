@@ -22,7 +22,7 @@ class LogConfig(BaseModel):
     disable_existing_loggers = True
     formatters = {
         "JSON": {
-            "()": "service.log_config.JsonFormatter.create",
+            "()": "skyvafnir-network-test.log_config.JsonFormatter.create",
             "fmt": LOG_FORMATTER_STRING,
             "datefmt": "%Y-%m-%d %H:%M:%S",
         }
