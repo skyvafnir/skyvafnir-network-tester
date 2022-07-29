@@ -6,7 +6,7 @@ docker.shell:
 	@docker run -it $(DOCKER_REPO):$(VERSION) bash
 
 docker.run:
-	@docker run -p 8000:80 $(DOCKER_REPO):$(VERSION)
+	@docker run -p 8000:8000 $(DOCKER_REPO):$(VERSION)
 
 docker.build:
 	docker build --build-arg VERSION=$(VERSION)-local --build-arg GIT_SHA=$(GIT_SHA) -t $(DOCKER_REPO):$(VERSION) .

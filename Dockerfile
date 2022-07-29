@@ -22,4 +22,4 @@ LABEL is.skyvafnir.tags.service="skyvafnir-network-test"
 LABEL is.skyvafnir.tags.version="${VERSION}"
 LABEL is.skyvafnir.tags.sha="${GIT_SHA}"
 
-CMD ["uvicorn", "skyvafnir-network-test.main:app", "--host", "0.0.0.0", "--port", "80"]
+CMD ["uvicorn", "skyvafnir-network-test.main:app", "--host", "0.0.0.0", "--port", "8000"]
