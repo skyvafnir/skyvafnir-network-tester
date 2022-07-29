@@ -27,7 +27,10 @@ The repository contains a [Makefile](./Makefile) with some useful targets. Highl
 3. Apply k8s manifests to working kube context: 
    ```shell
    $ make up
+   # -- OR - for a namespace other than the default (skyvafnir-network-test)  
+   $ make up NAMESPACE=skyvafnir-other-namespace
    ```
+
 
 # Releasing
 

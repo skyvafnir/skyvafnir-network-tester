@@ -1,0 +1,8 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  labels:
+    {{- include "skyvafnir-network-test.labels" . | nindent 4 }}
+    kubernetes.io/metadata.name: {{ include "skyvafnir-network-test.fullname" . }}
+
+  name: {{ include "skyvafnir-network-test.fullname" . }}
