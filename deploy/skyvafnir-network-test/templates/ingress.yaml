@@ -1,36 +1,21 @@
-{{/*apiVersion: networking.k8s.io/v1*/}}
-{{/*kind: Ingress*/}}
-{{/*metadata:*/}}
-{{/*  name: skyvafnir-network-test*/}}
-{{/*  labels:*/}}
-{{/*    helm.sh/chart: skyvafnir-network-test-0.1.0*/}}
-{{/*    app.kubernetes.io/name: skyvafnir-network-test*/}}
-{{/*    app.kubernetes.io/instance: skyvafnir-network-test*/}}
-{{/*    app.kubernetes.io/version: "1.2.0"*/}}
-{{/*    app.kubernetes.io/managed-by: Helm*/}}
-{{/*spec:*/}}
-{{/*  rules:*/}}
-{{/*    - host: "live-ingress.skyvafnir.is"*/}}
-{{/*      http:*/}}
-{{/*        paths:*/}}
-{{/*          - path: /network-test*/}}
-{{/*            pathType: Exact*/}}
-{{/*            backend:*/}}
-{{/*              service:*/}}
-{{/*                name: skyvafnir-network-test*/}}
-{{/*                port:*/}}
-{{/*                  number: 8000*/}}
-
-apiVersion: traefik.containo.us/v1alpha1
-kind: IngressRoute
+apiVersion: networking.k8s.io/v1
+kind: Ingress
 metadata:
-  name: skyvafnir-network-test
+  name: {{ include "skyvafnir-network-test.fullname" . }}
+  labels:
+    {{- include "skyvafnir-network-test.labels" . | nindent 4 }}
+  annotations:
+    # AGIC
+    kubernetes.io/ingress.class: azure/application-gateway
 spec:
-  entryPoints:
-    - web
-  routes:
-    - match: PathPrefix(`/`)
-      kind: Rule
-      services:
-        - name: skyvafnir-network-test
-          port: 8000
+  rules:
+  - http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: {{ include "skyvafnir-network-test.fullname" . }}
+
+            port:
+              number: {{ .Values.service.port }}
