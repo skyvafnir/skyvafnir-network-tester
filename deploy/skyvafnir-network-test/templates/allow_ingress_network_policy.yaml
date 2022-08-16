@@ -1,0 +1,18 @@
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: allow-ingress
+  labels:
+    {{- include "skyvafnir-network-test.labels" . | nindent 4 }}
+    kubernetes.io/metadata.name: {{ include "skyvafnir-network-test.fullname" . }}
+  namespace: {{ include "skyvafnir-network-test.fullname" . }} 
+spec:
+  podSelector:
+    matchLabels: 
+      app.kubernetes.io/name: {{ include "skyvafnir-network-test.fullname" . }}  
+  policyTypes:
+  - Ingress 
+  ingress:
+  - from:
+    - ipBlock:
+        cidr: 0.0.0.0/0

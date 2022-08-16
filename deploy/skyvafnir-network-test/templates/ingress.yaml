@@ -4,7 +4,6 @@ metadata:
   name: {{ include "skyvafnir-network-test.fullname" . }}
   labels:
     {{- include "skyvafnir-network-test.labels" . | nindent 4 }}
-  {{- with .Values.ingress.annotations }}
   annotations:
     {{- toYaml . | nindent 4 }}
   {{- end }}
