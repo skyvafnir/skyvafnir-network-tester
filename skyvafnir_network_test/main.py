@@ -7,22 +7,23 @@ from fastapi.templating import Jinja2Templates
 from logging.config import dictConfig
 import logging
 
-from .core import make_request, slugify_url
-from .log_config import configure_logging
-from .models import UrlCheckRequest, CheckUrlResponse
+from skyvafnir_network_test.core import make_request, slugify_url
+from skyvafnir_network_test.log_config import configure_logging
+from skyvafnir_network_test.models import UrlCheckRequest, CheckUrlResponse
 
 PROJECT_NAME = "skyvafnir-network-test"
 
 # Logging shenanigans
 LOG_FORMAT = os.environ.get("LOG_FORMAT", "JSON")
 LOG_LEVEL = os.environ.get("LOG_LEVEL", "INFO")
+URL_PATH_PREFIX = os.environ.get("URL_PATH_PREFIX", "")
 
 configure_logging(LOG_FORMAT, LOG_LEVEL)
 
 log = logging.getLogger(PROJECT_NAME)
 log.info("Starting up!")
-
-templates = Jinja2Templates(directory="skyvafnir-network-test/templates")
+dir_path = os.path.dirname(os.path.realpath(__file__))
+templates = Jinja2Templates(directory=f"{dir_path}/templates")
 
 app = FastAPI(
     title=PROJECT_NAME,

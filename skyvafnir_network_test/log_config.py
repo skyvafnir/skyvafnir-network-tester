@@ -22,7 +22,7 @@ class LogConfig(BaseModel):
     disable_existing_loggers = True
     formatters = {
         "JSON": {
-            "()": "skyvafnir-network-test.log_config.JsonFormatter.create",
+            "()": "skyvafnir_network_test.log_config.JsonFormatter.create",
             "fmt": LOG_FORMATTER_STRING,
             "datefmt": "%Y-%m-%d %H:%M:%S",
         }
@@ -64,6 +64,7 @@ class JsonFormatter(jsonlogger.JsonFormatter):
 
 
 def configure_logging(log_format: str = "JSON", log_level: str = "INFO"):
+    return
     if log_format.upper() == "JSON":
         log_config = LogConfig()
         log_config.loggers = {
