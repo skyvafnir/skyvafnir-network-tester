@@ -1,7 +1,7 @@
 apiVersion: networking.k8s.io/v1
 kind: NetworkPolicy
 metadata:
-  name: default-deny
+  name: allow-egress 
   labels:
     {{- include "skyvafnir-network-test.labels" . | nindent 4 }}
     kubernetes.io/metadata.name: {{ include "skyvafnir-network-test.fullname" . }}
