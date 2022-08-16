@@ -4,15 +4,16 @@ metadata:
   name: {{ include "skyvafnir-network-test.fullname" . }}
   labels:
     {{- include "skyvafnir-network-test.labels" . | nindent 4 }}
+  {{- with .Values.ingress.annotations }}
   annotations:
-    # AGIC
-    kubernetes.io/ingress.class: azure/application-gateway
-    appgw.ingress.kubernetes.io/backend-path-prefix: "/"
+    {{- toYaml . | nindent 4 }}
+  {{- end }}
+
 spec:
   rules:
   - http:
       paths:
-      - path: /skyvafnir
+      - path: {{ .Values.skyvafnir.prefixPath }}
         pathType: Prefix
         backend:
           service:

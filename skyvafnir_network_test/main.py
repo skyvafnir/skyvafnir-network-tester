@@ -48,7 +48,7 @@ def root(request: Request):
     for url in URLS:
         result = {"name": slugify_url(url), "url": url, "message": "waiting", "result_type": "..."}
         checked.append(result)
-        ctx = {"request": request, "results": checked, "urls": URLS}
+        ctx = {"request": request, "results": checked, "urls": URLS, "prefix": URL_PATH_PREFIX}
     return templates.TemplateResponse("index.html", ctx)
 
 
