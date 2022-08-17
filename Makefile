@@ -28,7 +28,14 @@ k8s.install:
 k8s.uninstall:
 	@$(call CMD_HELM_TEMPLATE) | kubectl delete -n $(NAMESPACE) -f -
 
+nginx.up:
+	@helm upgrade --install ingress-nginx ingress-nginx \
+       --repo https://kubernetes.github.io/ingress-nginx \
+       --namespace ingress-nginx --create-namespace
 
+nginx.port-forward:
+	@kubectl port-forward --namespace=ingress-nginx service/ingress-nginx-controller 8080:80 &
+	@open http://localhost:8080
 
 run: docker.run  # docker run
 shell: docker.shell  # open shell in docker contaienr
