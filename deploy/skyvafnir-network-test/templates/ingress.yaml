@@ -4,10 +4,9 @@ metadata:
   name: {{ include "skyvafnir-network-test.fullname" . }}
   labels:
     {{- include "skyvafnir-network-test.labels" . | nindent 4 }}
-  annotations:
-    {{- toYaml . | nindent 4 }}
+  {{ with .Values.ingress.annotations }}
+  annotations:  {{- toYaml . | nindent 4 }}
   {{- end }}
-
 spec:
   rules:
   - http:
@@ -17,6 +16,5 @@ spec:
         backend:
           service:
             name: {{ include "skyvafnir-network-test.fullname" . }}
-
             port:
               number: {{ .Values.service.port }}
