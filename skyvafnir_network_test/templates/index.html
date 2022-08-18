@@ -84,7 +84,7 @@
 
             for (const url of urls){
                 let postData = {"url": url}
-                let checkUrl = "{{ prefix }}/check-url/";
+                let checkUrl = "{{ prefix }}/check-url";
                 checkUrl.replace(/([^:]\/)\/+/g, "$1");
                 request.post(checkUrl, {
                     handleAs: "json",

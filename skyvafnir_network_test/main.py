@@ -53,7 +53,7 @@ def root(request: Request):
     return templates.TemplateResponse("index.html", ctx)
 
 
-@app.post("/check-url/", response_model=CheckUrlResponse)
+@app.post("/check-url", response_model=CheckUrlResponse)
 def check_url(url: UrlCheckRequest):
     response = make_request(url.url)
     log.info("Checking URL: %s", url.url)
