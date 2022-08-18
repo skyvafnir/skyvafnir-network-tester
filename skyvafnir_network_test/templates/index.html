@@ -84,7 +84,7 @@
 
             for (const url of urls){
                 let postData = {"url": url}
-                request.post("{{ URL_PATH_PREFIX }}/check-url/", {
+                request.post("{{ prefix }}/check-url/", {
                     handleAs: "json",
                     data: JSON.stringify(postData),
                     headers: { "Content-Type": "application/json"}
