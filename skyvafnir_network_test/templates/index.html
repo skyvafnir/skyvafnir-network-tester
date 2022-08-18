@@ -48,6 +48,7 @@
         pre {
           margin: 0;
         }
+        .version { opacity: 0.1; font-size: 0.8em; }
         .button-success,
         .button-error,
         .button-warning,
@@ -127,6 +128,8 @@
 </head>
 <body>
 <h1>Skývafnir Network Tester</h1>
+<span class="version"> {{ version }}</span>
+
 <div class="pure-g">
     <div class="pure-u-1-2"><h3>URL</h3></div>
     <div class="pure-u-1-2"><h3>Response</h3></div>
@@ -143,5 +146,6 @@
     {% endfor %}
 </div>
 </table>
+
 </body>
 </html>

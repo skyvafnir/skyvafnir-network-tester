@@ -45,10 +45,11 @@ URLS = os.environ.get("URLS", ",".join(TEST_URLS)).split(",")
 @app.get("/", response_class=HTMLResponse)
 def root(request: Request):
     checked = []
+    version = os.environ.get("VERSION", "no version")
     for url in URLS:
         result = {"name": slugify_url(url), "url": url, "message": "waiting", "result_type": "..."}
         checked.append(result)
-        ctx = {"request": request, "results": checked, "urls": URLS, "prefix": URL_PATH_PREFIX}
+        ctx = {"request": request, "results": checked, "urls": URLS, "prefix": URL_PATH_PREFIX, "version": version}
     return templates.TemplateResponse("index.html", ctx)
 
 
