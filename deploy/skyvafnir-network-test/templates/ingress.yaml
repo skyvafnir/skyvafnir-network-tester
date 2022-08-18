@@ -11,10 +11,11 @@ spec:
   rules:
   - http:
       paths:
-      - path: {{ .Values.skyvafnir.prefixPath }}
+      - path: {{ .Values.skyvafnir.prefixPath }}/
         pathType: Prefix
         backend:
           service:
             name: {{ include "skyvafnir-network-test.fullname" . }}
             port:
               number: {{ .Values.service.port }}
+

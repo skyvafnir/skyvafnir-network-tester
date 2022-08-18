@@ -59,11 +59,6 @@ ingress:
     kubernetes.io/ingress.class: azure/application-gateway  # Azure AKS AGIC
     appgw.ingress.kubernetes.io/backend-path-prefix: "/"    # Rewrite backend path to "/"
 
-  hosts:
-    - host: live-ingress.skyvafnir.is
-      paths:
-        - path: /
-          pathType: ImplementationSpecific
   tls: []
   #  - secretName: chart-example-tls
   #    hosts:
