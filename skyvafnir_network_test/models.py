@@ -1,5 +1,5 @@
 from pydantic import BaseModel
-from pydantic.fields import Optional
+from typing import Optional
 
 
 class MakeRequestResponse(BaseModel):
