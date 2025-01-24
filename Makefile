@@ -2,9 +2,10 @@ VERSION := $(shell cat VERSION)
 GIT_SHA := $(shell git rev-parse --short HEAD)
 DOCKER_REPO := "skyvafnir/skyvafnir-network-test"
 NAMESPACE ?= "skyvafnir-network-test"
-CMD_HELM_TEMPLATE = (helm template -name $(NAMESPACE) deploy/skyvafnir-network-test)
+VALUES_FILE ?= "deploy/skyvafnir-network-test/values.yaml"
 docker.shell:
-	@docker run -it $(DOCKER_REPO):$(VERSION) bash
+CMD_HELM_TEMPLATE = (helm template -f $(VALUES_FILE) -name $(NAMESPACE) deploy/skyvafnir-network-test)
+@docker run -it $(DOCKER_REPO):$(VERSION) bash
 
 docker.run:
 	@docker run -p 8000:8000 $(DOCKER_REPO):$(VERSION)
@@ -32,6 +33,10 @@ nginx.up:
 	@helm upgrade --install ingress-nginx ingress-nginx \
        --repo https://kubernetes.github.io/ingress-nginx \
        --namespace ingress-nginx --create-namespace
+
+nginx.down:
+	@helm uninstall ingress-nginx ingress-nginx \
+       --namespace ingress-nginx 
 
 nginx.port-forward:
 	@kubectl port-forward --namespace=ingress-nginx service/ingress-nginx-controller 8080:80 &

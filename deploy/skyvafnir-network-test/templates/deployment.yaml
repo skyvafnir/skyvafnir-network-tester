@@ -36,7 +36,7 @@ spec:
           imagePullPolicy: {{ .Values.image.pullPolicy }}
           env:
             - name: URL_PATH_PREFIX
-              value: {{ .Values.skyvafnir.prefixPath }}
+              value: {{ .Values.skyvafnir.prefixPath | trimSuffix "/" }}
           envFrom:
             - configMapRef:
                 name: {{ include "skyvafnir-network-test.fullname" . }}-urls
