@@ -12,7 +12,6 @@ spec:
   rules:
   - http:
       paths:
-{{/*      - path: {{ .Values.skyvafnir.prefixPath }}(/|$)(.*)*/}}
       - path: {{ .Values.skyvafnir.prefixPath }}
         pathType: Prefix
         backend:

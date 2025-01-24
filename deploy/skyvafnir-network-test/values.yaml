@@ -8,10 +8,9 @@ skyvafnir:
       - https://www.google.com
       - http://localhost:8000/ping
       - http://bad-url-should-fail.com
+      - http://skyvafnir-network-test.skyvafnir-network-test:8000/ping
       - http://localhost:8000/check-url
-      - https://www.gzur.org
-      - http://www.gzur.org
-      - http://skyvafnir-network-test-2.skyvafnir-network-test-2:8000/ping
+      - https://www.skyvafnir.cloud
 
 service:
   type: ClusterIP
